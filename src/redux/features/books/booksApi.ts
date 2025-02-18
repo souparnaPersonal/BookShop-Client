@@ -3,17 +3,18 @@ import { baseApi } from "../../api/baseApi";
 const booksApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllBooks: builder.query({
-      query: (args) => {
-        console.log("from api call function args", args);
+      query: (params = {}) => {
+        // Convert params object into a query string
+        const queryParams = new URLSearchParams(params).toString();
         return {
-          url: "/products",
+          url: `/products${queryParams ? `?${queryParams}` : ""}`, // Append params dynamically
           method: "GET",
         };
       },
     }),
     getBookById: builder.query({
       query: (id) => ({
-        url: `/products/${id}`, // Dynamic URL
+        url: `/products/${id}`,
         method: "GET",
       }),
     }),

@@ -7,5 +7,5 @@ export type TBook = {
   description: string;
   quantity: number;
   inStock: boolean;
-  image_Link: string;
+  imageUrl: string;
 };

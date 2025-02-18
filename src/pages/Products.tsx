@@ -4,12 +4,26 @@ import BookCard from "../components/BookCard";
 import { useState } from "react";
 
 export const Products = () => {
-  const { data: books } = useGetAllBooksQuery(undefined);
-
-  console.log(books);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchQuery, setsearchQuery] = useState("");
+  const [itemsPerPage, setitemsPerPage] = useState();
+  const queryParams = {};
 
+  if (selectedCategory) queryParams.category = selectedCategory;
+  if (searchQuery) queryParams.search = searchQuery;
+  if (itemsPerPage) queryParams.limit = itemsPerPage;
+
+  // Fetch books dynamically
+  const {
+    data: books,
+    error,
+    isLoading,
+  } = useGetAllBooksQuery(
+    Object.keys(queryParams).length ? queryParams : undefined
+  );
+
+  console.log("api result", books);
   // Function to handle category change
   const handleCategoryChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -22,6 +36,7 @@ export const Products = () => {
     (book: TBook) =>
       selectedCategory === "All" || book.category === selectedCategory
   );
+  console.log("filter books array", filteredBooks);
   return (
     // <section className="py-8 antialiased  md:py-12">
     //   <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -63,9 +78,10 @@ export const Products = () => {
                 >
                   <option>All</option>
                   <option>Fiction</option>
-                  <option>Non-fiction</option>
                   <option>Science</option>
-                  <option>History</option>
+                  <option>SelfDevelopment</option>
+                  <option>Poetry</option>
+                  <option>Religious</option>
                 </select>
               </label>
               <label className="block">
@@ -90,9 +106,11 @@ export const Products = () => {
             </button>
 
             <div className="mb-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {filteredBooks?.map((book: TBook, index: number) => (
+              {books?.data?.map((book: TBook, index: number) => (
                 <BookCard key={index} book={book} index={index} />
               ))}
+
+              {books?.data?.length === 0 && <h1>No book Available</h1>}
             </div>
           </div>
         </div>

@@ -31,12 +31,7 @@ export default function BookCard({
         <a href="#">
           <img
             className="mx-auto h-full dark:hidden"
-            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg"
-            alt=""
-          />
-          <img
-            className="mx-auto hidden h-full dark:block"
-            src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg"
+            src={book.imageUrl}
             alt=""
           />
         </a>
@@ -91,31 +86,11 @@ export default function BookCard({
               {book.author}
             </p>
           </li>
-
-          <li className="flex items-center gap-2">
-            <svg
-              className="h-4 w-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-width="2"
-                d="M8 7V6c0-.6.4-1 1-1h11c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1h-1M3 18v-7c0-.6.4-1 1-1h11c.6 0 1 .4 1 1v7c0 .6-.4 1-1 1H4a1 1 0 0 1-1-1Zm8-3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
-              />
-            </svg>
-            <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-              Best Price
-            </p>
-          </li>
         </ul>
 
         <div className="mt-4 flex items-center justify-between gap-4">
           <p className="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">
-            ₹{book.price}
+            ${book.price}
           </p>
           <Link to={`/products/${book?._id}`} className="cursor-pointer">
             <button

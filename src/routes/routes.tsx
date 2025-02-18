@@ -8,6 +8,8 @@ import ProtectedRoute from "../layout/ProtectedRoute";
 import { DashBoard } from "../pages/DashBoard";
 import { MainLayout } from "../layout/MainLayout";
 import Home from "../components/Home";
+import Success from "../pages/Success";
+import Failure from "../pages/Failure";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
             <DashBoard />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/sucess",
+        element: <Success />,
+      },
+      {
+        path: "/failed",
+        element: <Failure />,
       },
     ],
   },

@@ -16,7 +16,15 @@ const authApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+    placeOrder: builder.mutation({
+      query: (order) => ({
+        url: "/orders",
+        method: "POST",
+        body: order,
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation, usePlaceOrderMutation } =
+  authApi;
